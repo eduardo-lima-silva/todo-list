@@ -1,9 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <title>Todo List</title>
+    <meta charset="UTF-8">
+    <title>Minha Lista de Tarefas</title>
 </head>
 <body>
-  <h1>Minha To-Do List</h1>
+    <h1 id="todo-list-title">Minha Lista de Tarefas</h1>
+
+    <!-- Campo para digitar a tarefa -->
+    <input type="text" id="tarefaInput" placeholder="Digite seu afazer">
+    <button onclick="adicionarTarefa()">Adicionar</button>
+
+    <!-- Botão para remover a última tarefa -->
+    <input type="button" value="Remover Última Tarefa" onclick="removerUltimaTarefa()"
+    
+
+    <!-- Tabela onde as tarefas vão aparecer -->
+    <table border="1" id="tabelaTarefas">
+        <tr>
+            <th></th>
+            <th>Tarefa</th>
+        </tr>
+    </table>
+
+    <script>
+        let contadorTarefas = 1;
+        function adicionarTarefa() {
+            const input = document.getElementById("tarefaInput");
+            const tarefa = input.value.trim();
+
+            if (tarefa !== "") {
+                const tabela = document.getElementById("tabelaTarefas");
+                const novaLinha = tabela.insertRow();
+                
+                const celulaNumero = novaLinha.insertCell(0);
+                const celulaTarefa = novaLinha.insertCell(1);
+
+                celulaNumero.innerText = contadorTarefas;
+                celulaTarefa.innerText = tarefa;
+                contadorTarefas++;
+                input.value = ""; // limpa campo
+            }
+        }
+
+        function removerUltimaTarefa(){
+            const tabela = document.getDocumentById("tabelaTarefas");
+            const numeroLinhas = tabela.rows.length;
+            if (numeroLinhas > 1) { // Verifica se há tarefas para remover
+                tabela.deleteRow(numeroLinhas - 1);
+                contadorTarefas--;
+            }else{
+                alert("Nenhuma tarefa para remover!");
+            }
+        }
+    </script>
 </body>
 </html>
